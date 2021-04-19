@@ -1,0 +1,21 @@
+type Query {
+    productDocs (
+        product_id: Int @doc(description: "Id of the Current Product")
+        store_id: Int @doc(description: "Id of the Current Store")
+    ): ProductDocuments @resolver(class: "Mage2\\ProductDocs\\Model\\Resolver\\ProductDocuments") @doc(description: "The Product Documents query returns information about Product Documents")
+}
+
+type ProductDocumentsInterface @doc(description: "Product Documents grapgql gather of specific product document") {
+    document_id: Int @doc(description: "Document Id of product document")
+    document_label: String @doc(description: "Document Label of product document")
+    file_name: String @doc(description: "File name of document to be uploaded for the product")
+    product_ids: String @doc(description: "Product Ids to which document attached")
+    store_ids: String @doc(description: "Store ids in which product documents allowed to show")
+    sort_order: Int @doc(description: "Position of product document")
+    created_at: String @doc(description: "Date time when product document added by admin")
+}
+
+type ProductDocuments @doc(description: "Product Documents grapgql gather of all product documents") {
+    totalCount: Int @doc(description: "Total number of product document")
+    items: [ProductDocumentsInterface] @doc(description: "An array of Product Documents")
+}
