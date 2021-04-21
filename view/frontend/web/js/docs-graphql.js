@@ -53,8 +53,8 @@ define(['uiComponent', 'jquery', 'ko'], function(Component, $, ko) {
             const payload = {
                 query: query,
                 variables: {
-                    product_id: 1,
-                    store_id: 1
+                    product_id: this.currentProductId,
+                    store_id: this.currentStoreId
                 }
             };
 
