@@ -47,9 +47,15 @@ class ProductDocuments implements ResolverInterface
         $items = [];
         try {
             $collection = $this->documentsCollectionFactory->create();
-            $collection->addFieldToFilter('product_ids', ['regexp' => '[[:<:]]' . $args['product_id'] . '[[:>:]]'])
-                ->addFieldToFilter('store_ids', ['regexp' => '[[:<:]]' . $args['store_id'] . '[[:>:]]'])
-                ->setOrder('sort_order', 'ASC');
+            $collection->addFieldToFilter('product_ids', ['finset' => $args['product_id']]);
+            $collection->addFieldToFilter(
+                'store_ids',
+                [
+                    ['eq' => 0],
+                    ['finset' => $args['store_id']]
+                ]
+            );
+            $collection->setOrder('sort_order', 'ASC');
 
             $totalCount = $collection->getSize();
 
